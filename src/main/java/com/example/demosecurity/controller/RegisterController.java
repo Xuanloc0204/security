@@ -1,12 +1,11 @@
-package com.example.securityHTTP.controller;
+package com.example.demosecurity.controller;
 
-import com.example.securityHTTP.model.AppRole;
-import com.example.securityHTTP.model.AppUser;
-import com.example.securityHTTP.model.ROLENAME;
-import com.example.securityHTTP.service.role.IAppRoleService;
-import com.example.securityHTTP.service.user.IAppUserService;
+import com.example.demosecurity.model.AppRole;
+import com.example.demosecurity.model.AppUser;
+import com.example.demosecurity.model.ROLENAME;
+import com.example.demosecurity.service.role.IAppRoleService;
+import com.example.demosecurity.service.user.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/dangky")
+@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
@@ -41,20 +40,44 @@ public class RegisterController {
     }
 
 
-    @GetMapping
+    @GetMapping("")
     public String register(Model model){
         model.addAttribute("user", new AppUser());
-        return "dangky";
+        return "register";
     }
 
-    @PostMapping
-    public String register(AppUser user){
-//        tao role mac dinh khi dang ky la user
-        user.setRoll(getAppUser());
-        String newp = passwordEncoder.encode(user.getPassword());
-        user.setPassword(newp);
-//        luu vao trong db
-        appUserService.save(user);
-        return "redirect:/login";
+//    passwordEncoder
+@PostMapping
+public String register(AppUser user, Model model){
+    // Kiểm tra xem tên người dùng đã tồn tại chưa
+    if (appUserService.existsByUsername(user.getUsername())) {
+        // Nếu đã tồn tại, thêm thông báo lỗi vào model và trả về lại trang đăng ký
+        model.addAttribute("error", "Username already exists!");
+        return "register";
     }
+
+    // Tạo role mặc định khi đăng ký là user
+    user.setRoll(getAppUser());
+
+    // Mã hóa mật khẩu
+    String newp = passwordEncoder.encode(user.getPassword());
+    user.setPassword(newp);
+
+    // Lưu người dùng vào cơ sở dữ liệu
+    appUserService.save(user);
+    model.addAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
+    return "redirect:/login?register=success";
+}
+
+
+//    @PostMapping("")
+//    public String register(AppUser user) {
+//        AppRole appRole = appRoleService.findById(2L).get();
+//        Set<AppRole> appRoleSet = new HashSet<>();
+//        appRoleSet.add(appRole);
+//        user.setRoll(appRoleSet);
+//        appUserService.save(user);
+//
+//        return "redirect:/login";
+//    }
 }

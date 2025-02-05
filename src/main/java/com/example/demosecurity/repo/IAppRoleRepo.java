@@ -1,6 +1,6 @@
-package org.example.c08security.repo;
+package com.example.demosecurity.repo;
 
-import org.example.c08security.model.AppRole;
+import com.example.demosecurity.model.AppRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

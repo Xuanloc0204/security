@@ -1,4 +1,4 @@
-package org.example.c08security.model;
+package com.example.demosecurity.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,8 +1,9 @@
-package org.example.c08security.service.user;
+package com.example.demosecurity.service.user;
 
 
-import org.example.c08security.model.AppUser;
-import org.example.c08security.service.GeneralService;
+import com.example.demosecurity.model.AppUser;
+import com.example.demosecurity.service.GeneralService;
 
 public interface IAppUserService extends GeneralService<AppUser> {
+    boolean existsByUsername(String username);
 }

@@ -1,8 +1,8 @@
-package org.example.c08security.service.user;
+package com.example.demosecurity.service.user;
 
-import org.example.c08security.model.AppUser;
-import org.example.c08security.model.UserPrinciple;
-import org.example.c08security.repo.IAppUserRepo;
+import com.example.demosecurity.model.AppUser;
+import com.example.demosecurity.model.UserPrinciple;
+import com.example.demosecurity.repo.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,5 +44,9 @@ public class AppUserService implements UserDetailsService, IAppUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepo.findByUsername(username);
         return UserPrinciple.build(appUser);
+    }
+    @Override
+    public boolean existsByUsername(String username) {
+        return appUserRepo.existsByUsername(username);
     }
 }

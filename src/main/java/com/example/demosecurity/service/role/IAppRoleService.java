@@ -1,8 +1,8 @@
-package org.example.c08security.service.role;
+package com.example.demosecurity.service.role;
 
 
-import org.example.c08security.model.AppRole;
-import org.example.c08security.service.GeneralService;
+import com.example.demosecurity.model.AppRole;
+import com.example.demosecurity.service.GeneralService;
 
 public interface IAppRoleService extends GeneralService<AppRole> {
     AppRole findByName(String name);

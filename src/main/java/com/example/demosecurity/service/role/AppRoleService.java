@@ -1,7 +1,7 @@
-package org.example.c08security.service.role;
+package com.example.demosecurity.service.role;
 
-import org.example.c08security.model.AppRole;
-import org.example.c08security.repo.IAppRoleRepo;
+import com.example.demosecurity.model.AppRole;
+import com.example.demosecurity.repo.IAppRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
